@@ -34,6 +34,10 @@ def main():
     with open(path, "w", encoding="utf-8", newline="") as handle:
         handle.write(line)
     os.chmod(path, 0o644)
+    with open(path, "rb") as handle:
+        written = handle.read()
+    if written != line.encode("utf-8"):
+        raise ValueError("read-back verification failed: entry.txt mismatch")
 
 
 if __name__ == "__main__":
